@@ -25,7 +25,7 @@ export default function index() {
                         <div className='icon-box'>
                             <div className='icon logo-light-icon'></div>
                         </div>
-                        <div className='footer-logo-text'>{'안녕하세요'}</div>
+                        <div className='footer-logo-text'>{'Jays Web-Book'}</div>
                     </div>
                     <div className='footer-link-box'>
                         <div className='footer-email-link'>{`hemiblues@gmail.com`}
@@ -39,7 +39,7 @@ export default function index() {
                     </div>
                 </div>
                 <div className='footer-bottom'>
-                    <div className='footer-copyright'>© 2023 Board. All rights reserved.</div>
+                    <div className='footer-copyright'>© 2025 Board. All rights reserved.</div>
                 </div>
             </div>
         </div>
