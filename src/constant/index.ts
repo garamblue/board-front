@@ -1,6 +1,7 @@
 //to do point
 export const MAIN_PATH = () => '/';
 export const AUTH_PATH = () => '/auth';
+export const IBOOK_PATH = () => '/ibook';
 export const SEARCH_PATH = (searchWord: string) => `/search/${searchWord}`;
 export const USER_PATH = (userEmail: string) => `/user/${userEmail}`;
 export const BOARD_PATH = () => '/board';

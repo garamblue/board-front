@@ -9,7 +9,7 @@ import BoardDetail from 'views/Board/Detail';
 import BoardWrite from 'views/Board/Write';
 import BoardUpdate from 'views/Board/Update';
 import Container from 'layouts/Container';
-import { MAIN_PATH, AUTH_PATH, USER_PATH } from 'constant';
+import { MAIN_PATH, AUTH_PATH, USER_PATH, IBOOK_PATH } from 'constant';
 import { SEARCH_PATH, BOARD_PATH, BOARD_DETAIL_PATH  } from 'constant';
 import { BOARD_WRITE_PATH, BOARD_UPDATE_PATH } from 'constant';
 import { useCookies } from 'react-cookie';
@@ -18,6 +18,7 @@ import { getSignInUserRequest } from 'apis/requestApi_user';
 import { GetSignInUserResponseDto } from 'apis/response/user/exportType';
 import { ResponseDto } from 'apis/response';
 import { User } from 'types/interface';
+import ImageBookViewer from 'components/ImageBookViewer';
 
 // component //
 function App() {
@@ -72,6 +73,7 @@ function App() {
           <Route path={AUTH_PATH()} element={<Auth />} />
           <Route path={SEARCH_PATH(':srchWrd')} element={<Search />} />
           <Route path={USER_PATH(':userEmail')} element={<UserP />} />
+          <Route path={IBOOK_PATH()} element={<ImageBookViewer />} />
           <Route path={BOARD_PATH()}>
             <Route path={BOARD_WRITE_PATH()} element={<BoardWrite />} />
             <Route path={BOARD_UPDATE_PATH(':boardNumber')} element={<BoardUpdate />} />

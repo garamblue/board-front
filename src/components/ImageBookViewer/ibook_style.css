@@ -1,0 +1,101 @@
+.imagebook-viewer {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imagebook-bg {
+    width: 100vw;
+    max-width: 100%;
+    height: 100vh;
+    max-height: 90vh;
+    position: relative;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+}
+
+.imagebook-text {
+    background: rgba(255,255,255,0.7);
+    padding: 32px 24px;
+    min-height: 120px;
+    font-size: 1.2rem;
+}
+
+.imagebook-text-line {
+    font-size: 1.3em;
+    margin-bottom: 8px;
+    word-break: keep-all;
+}
+
+.imagebook-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2.5em;
+    background: none;
+    border: none;
+    cursor: pointer;
+    opacity: 0.8;
+    z-index: 2;
+    transition: opacity 0.2s;
+}
+.imagebook-arrow:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+.imagebook-arrow.left {
+    left: 8px;
+}
+.imagebook-arrow.right {
+    right: 8px;
+}
+
+.imagebook-progress-bar-bg {
+    position: absolute;
+    top: 1%;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background: #f1ffae;
+}
+.imagebook-progress-bar {
+    height: 100%;
+    background: #4caf50;
+    transition: width 0.3s;
+}
+.imagebook-progress-label {
+    position: absolute;
+    top: 2%;
+    right: 24px;
+    font-size: 1em;
+    color: black;
+    background: rgba(255,255,255,0.7);
+    border-radius: 8px;
+    padding: 2px 12px;
+}
+
+@media (max-width: 700px) {
+    .imagebook-bg {
+        max-width: 100vw;
+        max-height: 100vh;
+        border-radius: 0;
+    }
+    .imagebook-text {
+        padding: 20px 10px;
+        font-size: 1em;
+    }
+    .imagebook-progress-label {
+        right: 10px;
+        bottom: 10px;
+        font-size: 0.9em;
+    }
+}
