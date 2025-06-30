@@ -132,6 +132,7 @@ export default function Header() {
         // event handler: 로그아웃 버튼 클릭 이벤트 처리 함수
         const signOutButtonOnClickHandler = () => {
             resetLoginUser();
+            setCookie('accessToken', '', {path: MAIN_PATH(), expires: new Date() });
             navigate(MAIN_PATH());
         };
 
@@ -191,6 +192,11 @@ export default function Header() {
         setBoardUpdatePage(isBoardUpdatePage);
         setUserPage(isUserPage);
     }, [pathname]);
+
+    // effect: login user 가 변경 시 마다 실행될 함수 //
+    useEffect(() => {
+        setIsLoggedIn(loginUser !== null);
+    }, [loginUser])
 
     // rendering the component //
     return (

@@ -1,35 +1,61 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
-import BoardItem from 'components/BoardItem';
-import { favoriteListMock, commentListMock, latestBoardListMock, top3BoardListMock } from 'mocks';
-import Top3Item from 'components/Top3Item';
-import CommentItem from 'components/CommentItem';
-import FavoriteItem from 'components/FavoriteItem';
-import InputBox from 'components/InputBox';
-import Footer from 'layouts/Footer';
 import { Route, Routes } from 'react-router-dom';
 import Main from 'views/Main';
 import Auth from 'views/Auth';
 import Search from 'views/Search';
-import User from 'views/User';
+import UserP from 'views/User';
 import BoardDetail from 'views/Board/Detail';
 import BoardWrite from 'views/Board/Write';
 import BoardUpdate from 'views/Board/Update';
 import Container from 'layouts/Container';
-import { MAIN_PATH } from 'constant';
-import { AUTH_PATH } from 'constant';
-import { SEARCH_PATH } from 'constant';
-import { USER_PATH } from 'constant';
-import { BOARD_PATH } from 'constant';
-import { BOARD_DETAIL_PATH } from 'constant';
-import { BOARD_WRITE_PATH } from 'constant';
-import { BOARD_UPDATE_PATH } from 'constant';
-import { CookiesProvider } from 'react-cookie';
+import { MAIN_PATH, AUTH_PATH, USER_PATH } from 'constant';
+import { SEARCH_PATH, BOARD_PATH, BOARD_DETAIL_PATH  } from 'constant';
+import { BOARD_WRITE_PATH, BOARD_UPDATE_PATH } from 'constant';
+import { useCookies } from 'react-cookie';
+import { useLoginUserStore } from 'stores';
+import { getSignInUserRequest } from 'apis/requestApi_user';
+import { GetSignInUserResponseDto } from 'apis/response/user/exportType';
+import { ResponseDto } from 'apis/response';
+import { User } from 'types/interface';
 
 // component //
 function App() {
 
-  const [value, setValue] = useState<string>('');
+  // state: login user static 상태
+  const { setLoginUser, resetLoginUser } = useLoginUserStore();
+
+  // state: login user info for props 전달용
+  const [user, setUser] = useState<User | null>(null);
+
+  // state: cookie 상태
+  const [cookies, setCookie] = useCookies();
+
+  // function get Sign In User Response
+  const getSignInUserResponse = (responseBody: GetSignInUserResponseDto | ResponseDto | null) => {
+    if(!responseBody) return;
+    const {code} = responseBody;
+    if (code === 'AF' || code === 'NU' || code === 'DBE') {
+      resetLoginUser();
+      setUser(null);
+      return;
+    }
+    const loginUser: User = { ...responseBody as GetSignInUserResponseDto };
+    setLoginUser(loginUser);
+    setUser(loginUser);
+  }
+
+  // effect: accessToken cookie 값이 변경될 때마다 실행
+  useEffect(() => {
+    if (!cookies.accessToken) {
+      resetLoginUser();
+      setUser(null);
+      return;
+    }
+    getSignInUserRequest(cookies.accessToken).then(getSignInUserResponse);
+  }, [cookies.accessToken]);
+
+  
 
   // rendering the component //
   // description: 메인 화면 : '/' - Main //
@@ -40,22 +66,20 @@ function App() {
   // description: 게시물 작성하기 : '/board/write' - BoardWrite //
   // description: 게시물 수정하기 : '/board/update/:boardNumber' - BoardUpdate //
   return (
-    <CookiesProvider>
-    <Routes>
-      <Route element={<Container />}>
-        <Route path={MAIN_PATH()} element={<Main />} />
-        <Route path={AUTH_PATH()} element={<Auth />} />
-        <Route path={SEARCH_PATH(':srchWrd')} element={<Search />} />
-        <Route path={USER_PATH(':userEmail')} element={<User />} />
-        <Route path={BOARD_PATH()}>
-          <Route path={BOARD_WRITE_PATH()} element={<BoardWrite />} />
-          <Route path={BOARD_UPDATE_PATH(':boardNumber')} element={<BoardUpdate />} />
-          <Route path={BOARD_DETAIL_PATH(':boardNumber')} element={<BoardDetail />} />
+      <Routes>
+        <Route element={<Container />}>
+          <Route path={MAIN_PATH()} element={<Main user={user} />} />
+          <Route path={AUTH_PATH()} element={<Auth />} />
+          <Route path={SEARCH_PATH(':srchWrd')} element={<Search />} />
+          <Route path={USER_PATH(':userEmail')} element={<UserP />} />
+          <Route path={BOARD_PATH()}>
+            <Route path={BOARD_WRITE_PATH()} element={<BoardWrite />} />
+            <Route path={BOARD_UPDATE_PATH(':boardNumber')} element={<BoardUpdate />} />
+            <Route path={BOARD_DETAIL_PATH(':boardNumber')} element={<BoardDetail />} />
+          </Route>
+          <Route path="*" element={<h1>Page Not Found</h1>} />
         </Route>
-        <Route path="*" element={<h1>Page Not Found</h1>} />
-      </Route>
-    </Routes>
-    </CookiesProvider>
+      </Routes>
   );
 }
 

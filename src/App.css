@@ -37,6 +37,13 @@
   }
 }
 
+
+.divider {
+  width: 100%;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+
 .black-button {
   border-radius: 46px;
   width: 95px;
@@ -193,4 +200,12 @@
 
 .check-ring-light-icon {
   background-image: url(assets/img/check-ring-light.png);
+}
+
+.image-box-light-icon {
+  background-image: url(assets/img/image-box-light.png);
+}
+
+.close-icon {
+  background-image: url(assets/img/close.png);
 }
