@@ -126,6 +126,11 @@
         padding: 20px 10px;
         font-size: 1em;
     }
+    .imagebook-text-line {
+        font-size: 0.7em;
+        margin-bottom: 4px;
+        word-break: keep-all;
+    }
     .imagebook-progress-label {
         right: 10px;
         bottom: 10px;
