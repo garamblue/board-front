@@ -9,7 +9,7 @@
 
 .footer-container {
     width: 100%;
-    min-width: 420px;
+    min-width: 350px;
     display: flex;
     flex-direction: column;
     gap: 20px;
