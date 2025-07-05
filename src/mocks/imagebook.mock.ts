@@ -86,25 +86,25 @@ export const IMAGEBOOK_PAGES: ImageBookPage[] = [
         ],
     },
     {
-        image: '/img/ibsmpl_page20.jpg',
+        image: '/img/ruth1_19.png',
         texts: [
             '19   그 두 사람은 길을 떠나서, 베들레헴에 이르렀다. 그들이 베들레헴에 이르니, 온 마을이 떠들썩하였다. 아낙네들이 "이게 정말 나오미인가?" 하고 말하였다.',
         ],
     },
     {
-        image: '/img/ibsmpl_page20.jpg',
+        image: '/img/ruth1_19.png',
         texts: [
             '20   나오미가 그들에게 대답하였다. "나를 3)나오미라고 부르지들 마십시오. 10)전능하신 분께서 나를 몹시도 괴롭게 하셨으니, 이제는 나를 11)마라라고 부르십시오.',
         ],
     },
     {
-        image: '/img/ibsmpl_page20.jpg',
+        image: '/img/ruth1_19.png',
         texts: [
             '21   나는 가득 찬 채로 이 곳을 떠났습니다. 그러나 주께서는 나를 텅 비어서 돌아오게 하셨습니다. 주께서 나를 치시고, 10)전능하신 분께서 나를 12)불행하게 하셨는데, 이제 나를 나오미라고 부를 까닭이 어디에 있겠습니까?"',
         ],
     },
     {
-        image: '/img/ibsmpl_page20.jpg',
+        image: '/img/ruth1_22.png',
         texts: [
             '22   이렇게 하여 나오미는, 모압 여인인 며느리 룻과 함께 모압 지방에서 돌아왔다. 그들이 베들레헴에 이르렀을 때는, 보리를 거두기 시작할 무렵이었다.',
         ],

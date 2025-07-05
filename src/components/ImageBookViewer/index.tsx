@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import HTMLFlipBook from 'react-pageflip';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { IMAGEBOOK_PAGES } from '../../mocks/imagebook.mock';
@@ -17,26 +17,57 @@ const Page = React.forwardRef<HTMLDivElement, { children: React.ReactNode }>(
 
 const ImageBookViewer: React.FC = () => {
     
-    // useRef: 
+    // reference: 
     const bookRef = useRef<any>(null);
 
+    // state: 현재 page
     const [currentPage, setCurrentPage] = useState(0);
+    
+    // state: text 접힘상태
+    const textRef = useRef<HTMLDivElement>(null);
+    //const [isTextVisible, setIsTextVisible] = useState(true);
+    const [isCollapsed, setIsCollapsed] = useState(false);
+    const [textHeight, setTextHeight] = useState(0);
+
     const handleFlip = (e: any) => {
         //e.data - 현재 페이지 인덱스
         setCurrentPage(e.data);
         console.log(e.data);
     };
 
+    const toggleOnClickHandler = () => {
+        //setIsTextVisible(!isTextVisible);
+        setIsCollapsed((prev) => !prev);
+        //console.log(`isTextVisible: ${isTextVisible}`);
+    };
+
     //진행률
     const progress = Math.round(((currentPage + 1) / TOTAL_PAGES) * 100);
     const [page, setPage] = useState(0);
     
-    // const { image, texts } = IMAGEBOOK_PAGES[page];
-
     const prev = () => bookRef.current.pageFlip().flipPrev();
     const next = () => bookRef.current.pageFlip().flipNext();
     // const goPrev = () => setPage((p) => Math.max(0, p - 1));
     // const goNext = () => setPage((p) => Math.min(TOTAL_PAGES - 1, p + 1));
+
+    // useEffect: 텍스트 영역 높이 측정
+    // useEffect(() => {
+    //     console.log(`textRef.current: ${textRef.current}`);
+    //     if (textRef.current) {
+    //         const resizeObserver = new ResizeObserver((entries) => {
+    //             for (let entry of entries) {
+    //                 setTextHeight(entry.contentRect.height);
+    //                 console.log(`setTextHeight: ${entry.contentRect.height}`);
+    //             }
+    //         });
+            
+    //         resizeObserver.observe(textRef.current);
+            
+    //         return () => {
+    //             resizeObserver.disconnect();
+    //         };
+    //     }
+    // }, []);
 
     return (
         <div className="sketchbook-container">
@@ -68,13 +99,37 @@ const ImageBookViewer: React.FC = () => {
                     <Page>
                         <div className="imagebook-page" key={idx}>
                             <div className="imagebook-bg" style={{backgroundImage: `url(${page.image})`,}}>
-                                <div className="imagebook-text">
-                                {page.texts.map((line, i) => (
-                                    <div key={i} className="imagebook-text-line">
-                                        {line}
+                                <div className={`card-text-wrapper ${isCollapsed ? 'collapsed' : ''}`}>
+                                    {/* toggle 영역 */}
+                                    {/* 
+                                    <div className="card-toggle-wrapper">
+                                        <div className="card-toggle" onClick={toggleOnClickHandler}>
+                                            {isCollapsed ? '∧' : '∨'}
+                                        </div>
+                                    </div> */}
+                                    <div className="card-toggle-wrapper">
+                                        <button className="text-toggle-btn" onClick={toggleOnClickHandler}
+                                            aria-label={isCollapsed ? "text hide" : "text show"}
+                                        >
+                                            {isCollapsed ? '∧' : '∨'}
+                                        </button>
                                     </div>
-                                ))}
+                                    
+                                    {/* text 영역 */}
+                                    {!isCollapsed && (
+                                        <div className="imagebook-text">
+                                            {page.texts.map((line, i) => (
+                                                <div key={i} className="imagebook-text-line">
+                                                    {line}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
                                 </div>
+                                
+                                
+                                {/* <div ref={textRef} className={`imagebook-text ${isTextVisible ? 'text-visible' : 'text-hidden'}`}>
+                                </div> */}
                             </div>
                         </div>
                     </Page>
@@ -86,34 +141,7 @@ const ImageBookViewer: React.FC = () => {
             </button>
         </div>
 
-    // <div className="imagebook-viewer">
-    //     <div className="imagebook-bg" style={{backgroundImage: `url(${image})`,}}>
-    //         {/* Progress Bar */}
-    //         <div className="imagebook-progress-bar-bg">
-    //             <div className="imagebook-progress-bar" style={{ width: `${progress}%` }}/>
-    //         </div>
-    //         <div className="imagebook-progress-label">
-    //             {progress}%
-    //         </div>
-
-    //         {/* 텍스트 */}
-    //         <div className="imagebook-text">
-    //             {texts.map((line, idx) => (
-    //                 <div key={idx} className="imagebook-text-line">
-    //                 {line}
-    //                 </div>
-    //             ))}
-    //         </div>
-
-    //         {/* 화살표 */}
-    //         <button onClick={goPrev} disabled={page === 0} className="imagebook-arrow left" aria-label="Prev Page">
-    //             ◀
-    //         </button>
-    //         <button onClick={goNext} disabled={page === TOTAL_PAGES - 1} className="imagebook-arrow right" aria-label="Next Page">
-    //             ▶
-    //         </button>
-    //     </div>
-    // </div>
+    
     );
 };
 

@@ -156,6 +156,8 @@ export default function Header() {
 
         // event handler: 업로드 버튼 클릭 이벤트 처리
         const uploadButtonOnClickHandler = () => {
+            const accessToken = cookies.accessToken;
+            
             // 게시물 업로드 처리
             if (!title || !content || boardImageFileList.length === 0) {
                 alert('제목, 내용, 이미지 파일을 모두 입력해주세요.');

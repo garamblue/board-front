@@ -1,6 +1,8 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import './style.css';
-import { useBoardStore } from 'stores';
+import { useBoardStore, useLoginUserStore } from 'stores';
+import { MAIN_PATH } from 'constant';
+import { useNavigate } from 'react-router-dom';
 
 // component: 게시물 작성 component
 export default function BoardWrite() {
@@ -21,6 +23,12 @@ export default function BoardWrite() {
 
     // state: 게시물 이미지 미리보기 url 상태
     const [imageUrls, setImageUrls] = useState<string[]>([]);
+
+    // state: login user 상태
+    const { loginUser } = useLoginUserStore();
+
+    // function: 네비게이트 함수
+    const navigator = useNavigate();
 
     // event handler function: title text 입력 시 발생
     const titleOnChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -80,6 +88,11 @@ export default function BoardWrite() {
 
     // effect: 첫 loading 시 실행할 함수
     useEffect(() => {
+        //login 되어 있지 않으면 들어오지 못하게 막음
+        if(!loginUser) {
+            navigator(MAIN_PATH());
+            return;
+        }
         resetBoard();
     }, []);
 
