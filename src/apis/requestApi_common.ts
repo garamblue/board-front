@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { PostBoardsRequestDto } from './request/board';
-import { PostBoardsResponseDto } from './response/board';
+import { PostBoardRequestDto } from './request/board';
+import { PostBoardResponseDto } from './response/board';
 import { error } from 'console';
 import { ResponseDto } from './response';
 
@@ -34,13 +34,14 @@ export const fileUploadRequest = async (data: FormData) => {
  */
 const POST_BOARD_URL = () => `${API_DOMAIN}/board`;
 
-export const postBoardRequest = async (requestBody: PostBoardsRequestDto, accessToken: string) => {
+export const postBoardRequest = async (requestBody: PostBoardRequestDto, accessToken: string) => {
     const result = await axios.post(POST_BOARD_URL(), requestBody, authorization(accessToken))
         .then(response => {
-            const responseBody: PostBoardsResponseDto = response.data;
+            const responseBody: PostBoardResponseDto = response.data;
             return responseBody;
         })
         .catch(error => {
+            if(!error.response) return null;
             const responseBody: ResponseDto = error.response.data;
             return responseBody;
         })

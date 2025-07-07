@@ -4,6 +4,10 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { AUTH_PATH, BOARD_DETAIL_PATH, BOARD_PATH, BOARD_UPDATE_PATH, BOARD_WRITE_PATH, MAIN_PATH, SEARCH_PATH, USER_PATH } from 'constant';
 import { useCookies } from 'react-cookie';
 import { useBoardStore, useLoginUserStore } from 'stores';
+import { fileUploadRequest, postBoardRequest } from 'apis/requestApi_common';
+import { PostBoardRequestDto } from 'apis/request/board';
+import { PostBoardResponseDto } from 'apis/response/board';
+import { ResponseDto } from 'apis/response';
 
 // component: layouts
 export default function Header() {
@@ -154,18 +158,55 @@ export default function Header() {
         // state: 게시물 상태
         const { title, content, boardImageFileList, resetBoard } = useBoardStore();
 
+        // function: post board response 함수
+        const postBoardResponse = (responseBody: PostBoardResponseDto | ResponseDto | null) => {
+            if(!responseBody) return;
+            const {code} = responseBody;
+            if(code === 'AF' || code === 'NU') {navigate(AUTH_PATH());}
+            if(code === 'VF') {alert('제목과 내용은 필수입니다.');}
+            if(code === 'DBE') {alert('Database 오류입니다.');}
+            if(code === 'SU') return;
+
+            resetBoard();
+            if(!loginUser) return;
+            const { email } = loginUser;
+            //go to myPage
+            navigate(USER_PATH(email));
+        }
+
         // event handler: 업로드 버튼 클릭 이벤트 처리
-        const uploadButtonOnClickHandler = () => {
+        const uploadButtonOnClickHandler = async () => {
             const accessToken = cookies.accessToken;
+            if(!accessToken) return;
+
+            const boardImageList: string[] = [];
+
+            for(const file of boardImageFileList) {
+                const data = new FormData();
+                data.append('file', file);
+
+                const url = await fileUploadRequest(data);
+                if(url) {
+                    boardImageList.push(url);
+                }
+            }
+
+            const requestBody: PostBoardRequestDto = {
+                title, content, boardImageList
+            }
+            postBoardRequest(requestBody, accessToken).then(postBoardResponse);
+
+
+
             
             // 게시물 업로드 처리
-            if (!title || !content || boardImageFileList.length === 0) {
-                alert('제목, 내용, 이미지 파일을 모두 입력해주세요.');
-                return;
-            }
+            // if (!title || !content || boardImageFileList.length === 0) {
+            //     alert('제목, 내용, 이미지 파일을 모두 입력해주세요.');
+            //     return;
+            // }
             // 게시물 업로드 로직 추가 필요
-            resetBoard();
-            navigate(MAIN_PATH());
+            // resetBoard();
+            // navigate(MAIN_PATH());
         };
 
         // rendering the upload button component

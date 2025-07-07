@@ -1,5 +1,5 @@
-import PostBoardsResponseDto from "./post-board.response.dto";
+import PostBoardResponseDto from "./post-board.response.dto";
 
 export type {
-    PostBoardsResponseDto
+    PostBoardResponseDto
 }

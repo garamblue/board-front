@@ -3,6 +3,7 @@ import './style.css';
 import { useBoardStore, useLoginUserStore } from 'stores';
 import { MAIN_PATH } from 'constant';
 import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 // component: 게시물 작성 component
 export default function BoardWrite() {
@@ -27,8 +28,11 @@ export default function BoardWrite() {
     // state: login user 상태
     const { loginUser } = useLoginUserStore();
 
+    // state: cookie 상태
+    const [cookies, setCookies] = useCookies();
+
     // function: 네비게이트 함수
-    const navigator = useNavigate();
+    const navigate = useNavigate();
 
     // event handler function: title text 입력 시 발생
     const titleOnChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -88,9 +92,10 @@ export default function BoardWrite() {
 
     // effect: 첫 loading 시 실행할 함수
     useEffect(() => {
-        //login 되어 있지 않으면 들어오지 못하게 막음
-        if(!loginUser) {
-            navigator(MAIN_PATH());
+        const accessToken = cookies.accessToken;
+        //accessToken 이 없으면 들어오지 못하게 막음
+        if(!accessToken) {
+            navigate(MAIN_PATH());
             return;
         }
         resetBoard();
