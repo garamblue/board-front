@@ -75,8 +75,6 @@ function App() {
           <Route path={AUTH_PATH()} element={<Auth />} />
           <Route path={SEARCH_PATH(':srchWrd')} element={<Search />} />
           <Route path={USER_PATH(':userEmail')} element={<UserP />} />
-          {/* <Route path={IBOOK_PATH()} element={<ImageCard imageUrl={imageSrc} 
-                  text="22 이렇게 하여 나오미는, 모압 여인인 며느리 룻과 함께 모압 지방에서 돌아왔다. 그들이 베들레헴에 이르렀을 때는, 보리를 거두기 시작할 무렵이었다. 22 이렇게 하여 나오미는, 모압 여인인 며느리 룻과 함께 모압 지방에서 돌아왔다. 그들이 베들레헴에 이르렀을 때는, 보리를 거두기 시작할 무렵이었다." />} /> */}
           {<Route path={IBOOK_PATH()} element={<ImageBookViewer />} />}
           <Route path={BOARD_PATH()}>
             <Route path={BOARD_WRITE_PATH()} element={<BoardWrite />} />
