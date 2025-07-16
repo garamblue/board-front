@@ -51,7 +51,7 @@
     height: 32px;
     
     background-position: 50% 50%;
-    background-image: 100% 100%;
+    background-size: 100% 100%;
 }
 
 .board-detail-writer-nickname {
@@ -59,6 +59,7 @@
     font-size: 16px;
     font-weight: 500;
     line-height: 140%;
+    cursor: pointer;
 }
 
 .board-detail-info-divider, .board-detail-write-date {
@@ -67,6 +68,69 @@
     font-weight: 400;
     line-height: 140%;
 }
-/* .board-detail */
 
+.board-detail-more-box {
+    position: absolute;
+    top: 150px;
+    right: 200px;
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.1);
+}
 
+.board-detail-update-button {
+    width: 120px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 0.8em;
+    font-weight: 500;
+    line-height: 140%;
+}
+
+.board-detail-update-button:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+}
+
+.board-detail-delete-button {
+    width: 120px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgba(255, 0, 0, 0.5);
+    font-size: 0.8em;
+    font-weight: 500;
+    line-height: 140%;
+}
+
+.board-detail-delete-button:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+}
+
+.board-detail-top-main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.board-detail-main-text {
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 1em;
+    font-weight: 500;
+    line-height: 150%;
+
+    white-space: pre-wrap;/* 줄바꿈 허용 */
+}
+
+.board-detail-image {
+    width: 100%;
+    height: 500px;
+    background-position: 50% 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 8px;
+}

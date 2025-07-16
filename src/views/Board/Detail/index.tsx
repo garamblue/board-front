@@ -7,12 +7,21 @@ import React, { useEffect, useState } from 'react';
 import { CommentListItem, FavoriteListItem } from 'types/interface';
 import './style.css';
 import defUserImage from 'assets/img/def-user.png';
+import testImage from './img/testImg.jpg';
 
 // component: 게시물 상세보기
 export default function BoardDetail() {
 
     // component: 게시물 상세 상단
     const BoardDetailTop = () => {
+
+        //state: more button 상태
+        const [showMore, setShowMore] = useState<boolean>(false);
+
+        // event handler: more button onClick event handler
+        const moreButtonOnClickHandler = () => {
+            setShowMore(!showMore);
+        }
 
         // rendering Top component //
         return (
@@ -22,24 +31,26 @@ export default function BoardDetail() {
                     <div className='board-detail-top-sub-box'>
                         <div className='board-detail-write-info-box'>
                             <div className='board-detail-writer-profile-image' style={{backgroundImage: `url(${defUserImage})`}}></div>
-                            <div className='board-detail-write-nickname'>{`nickname 입니다.`}</div>
+                            <div className='board-detail-writer-nickname'>{`nickname 입니다.`}</div>
                             <div className='board-detail-info-divider'></div>
                             <div className='board-detail-write-date'>{`2025.10.25`}</div>
                         </div>
-                        <div className='icon-button'>
+                        <div className='icon-button' onClick={moreButtonOnClickHandler}>
                             <div className='icon more-icon'></div>
                         </div>
+                        {showMore &&
                         <div className='board-detail-more-box'>
-                            <div className='board-detail-update-button'></div>
+                            <div className='board-detail-update-button'>{`update`}</div>
                             <div className='divider'></div>
-                            <div className='board-detail-delete-button'></div>
+                            <div className='board-detail-delete-button'>{`delete`}</div>
                         </div>
+                        }
                     </div>
                 </div>
                 <div className='divider'></div>
                 <div className='board-detail-top-main'>
-                    <div className='board-detail-text'></div>
-                    <div className='board-detail-image'></div>
+                    <div className='board-detail-text'>board-detail-top-main 의 텍스트 입니다.</div>
+                    <img className='board-detail-image' src={testImage} alt="Test Image" />
                 </div>
             </div>
         )
