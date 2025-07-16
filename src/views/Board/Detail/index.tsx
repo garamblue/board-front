@@ -1,9 +1,12 @@
 import CommentItem from 'components/CommentItem';
 import FavoriteItem from 'components/FavoriteItem';
+import Pagination from 'components/Page';
 import { commentListMock } from 'mocks';
 import favoriteListMock from 'mocks/favorite-list.mock';
 import React, { useEffect, useState } from 'react';
 import { CommentListItem, FavoriteListItem } from 'types/interface';
+import './style.css';
+import defUserImage from 'assets/img/def-user.png';
 
 // component: 게시물 상세보기
 export default function BoardDetail() {
@@ -15,11 +18,11 @@ export default function BoardDetail() {
         return (
             <div id='board-detail-top'>
                 <div className='board-detail-top-header'>
-                    <div className='board-detail-title'>{`sddflkjksdflksjdflkskjdflkksjdflkjsdfdf`}</div>
+                    <div className='board-detail-title'>{`Title 입니다.`}</div>
                     <div className='board-detail-top-sub-box'>
                         <div className='board-detail-write-info-box'>
-                            <div className='board-detail-writer-profile-image'></div>
-                            <div className='board-detail-write-nickname'>{`sddflkjksfdf`}</div>
+                            <div className='board-detail-writer-profile-image' style={{backgroundImage: `url(${defUserImage})`}}></div>
+                            <div className='board-detail-write-nickname'>{`nickname 입니다.`}</div>
                             <div className='board-detail-info-divider'></div>
                             <div className='board-detail-write-date'>{`2025.10.25`}</div>
                         </div>
@@ -87,14 +90,14 @@ export default function BoardDetail() {
                 </div>
                 <div className='board-detail-bottom-comment-box'>
                     <div className='board-detail-bottom-comment-container'>
-                        <div className='board-detail-bottom-comment-title'>{' '}<span className='emphasis'>{12}</span></div>
+                        <div className='board-detail-bottom-comment-title'>{'댓글'}<span className='emphasis'>{12}</span></div>
                         <div className='board-detail-bottom-comment-list-container'>
                         {commentList.map(item => <CommentItem commentListItem={item} />)}
                         </div>
                     </div>
                     <div className='divider'></div>
                     <div className='board-detail-bottom-comment-pagination-box'>
-                        
+                        <Pagination />
                     </div>
                     <div className='board-detail-bottom-comment-input-container'>
                         <div className='board-detail-bottom-comment-input-container'>
