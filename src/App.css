@@ -37,12 +37,14 @@
   }
 }
 
-
 .divider {
   width: 100%;
   border-top: 1px solid rgba(0, 0, 0, 0.2);
 }
 
+.emphasis {
+  font-weight: bolder;
+}
 
 .black-button {
   border-radius: 46px;
@@ -212,4 +214,24 @@
 
 .more-icon {
   background-image: url(assets/img/more.png);
+}
+
+.favorite-fill-icon {
+  background-image: url(assets/img/favorite-fill.png);
+}
+
+.favorite-light-icon {
+  background-image: url(assets/img/favorite-light.png);
+}
+
+.up-light-icon {
+  background-image: url(assets/img/expand-up-light.png);
+}
+
+.down-light-icon {
+  background-image: url(assets/img/expand-down-light.png);
+}
+
+.comment-icon {
+  background-image: url(assets/img/chat-light.png);
 }
