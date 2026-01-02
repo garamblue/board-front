@@ -8,14 +8,27 @@ import { CommentListItem, FavoriteListItem } from 'types/interface';
 import './style.css';
 import defUserImage from 'assets/img/def-user.png';
 import testImage from './img/testImg.jpg';
+import { useLoginUserStore } from 'stores';
 
 // component: 게시물 상세보기
 export default function BoardDetail() {
 
+    // state: 로그인 유저 상태 52강 게시물 상세 페이지 이벤트 처리 2:14
+    //객체 Destructuring
+    //let name = person.name;
+    //let age = person['age'];
+    //let {name, age} = person; 
+    const {loginUser} = useLoginUserStore();
+
+
     // component: 게시물 상세 상단
     const BoardDetailTop = () => {
 
-        //state: more button 상태
+        // state: more button 상태
+        // 배열 Destructuring 과 유사 
+        // const numbers = [1, 2, 3, 4, 5];
+        // const [first, second] = numbers;
+        // const [first, second, ...rest] = numbers;
         const [showMore, setShowMore] = useState<boolean>(false);
 
         // event handler: more button onClick event handler

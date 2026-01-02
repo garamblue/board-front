@@ -235,3 +235,30 @@
 .comment-icon {
   background-image: url(assets/img/chat-light.png);
 }
+
+.profile {
+  position: relative;
+  width: 300px;
+  text-align: center;
+  padding: 1rem;
+  background-color: #ebebeb;
+  border-radius: 20px;
+  box-shadow: 7px 5px 23px -9px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 7px 5px 23px -9px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 7px 5px 23px -9px rgba(0, 0, 0, 0.75);
+  margin-bottom: 1rem;
+}
+
+.profile_photo {
+  border-radius: 100%;
+}
+
+.new {
+  position: absolute;
+  left: 70%;
+  top: 10%;
+  background-color: red;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.5rem;
+  text-transform: uppercase;
+}
